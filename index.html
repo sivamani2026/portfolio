@@ -1137,7 +1137,7 @@
       padding-top: 80px;
     }
     .hero-headline {
-      font-size: clamp(4rem, 6vw, 7rem) !important;
+      font-size: clamp(3.8rem, 5.2vw, 6rem) !important;
       line-height: 0.95;
     }
     .hero-desc {
@@ -1202,15 +1202,16 @@
     .hero-3d-scene {
       perspective: 1200px;
       position: relative;
-      width: clamp(340px, 40vw, 520px);
+      width: clamp(400px, 40vw, 500px);
       aspect-ratio: 4/5;
+      z-index: 10;
     }
     
     /* Premium Glass Neon Frame */
     .hero-photo-wrapper {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 2;
+      z-index: 10;
       border-radius: 20px;
       border: 2px solid rgba(0, 255, 136, 0.8);
       box-shadow: 0 0 40px rgba(0, 255, 136, 0.4), inset 0 0 40px rgba(0, 255, 136, 0.3);
@@ -1221,6 +1222,8 @@
       transition: transform 0.1s ease-out;
       animation: floatingCard 6s ease-in-out infinite alternate;
       will-change: transform;
+      opacity: 1 !important;
+      visibility: visible !important;
     }
     
     /* Glass Reflection Overlay */
@@ -1239,9 +1242,8 @@
       height: 100% !important;
       object-fit: cover !important;
       display: block;
-      opacity: 0.9;
-      filter: contrast(1.1) brightness(0.9);
-      mix-blend-mode: luminosity;
+      opacity: 1 !important;
+      visibility: visible !important;
     }
     
     /* 3D Elements */
@@ -1253,7 +1255,7 @@
       box-shadow: 0 0 25px rgba(0, 255, 136, 0.5), inset 0 0 15px rgba(0, 255, 136, 0.3);
       animation: spinOrbit 15s linear infinite;
       pointer-events: none;
-      z-index: 1;
+      z-index: -1;
       transform: rotateX(70deg);
       transform-style: preserve-3d;
     }
@@ -1356,8 +1358,8 @@
 
     @media (max-width: 1024px) {
       .hero-layout { grid-template-columns: 1fr 1fr !important; gap: 40px; }
-      .hero-headline { font-size: clamp(3rem, 5vw, 5rem) !important; }
-      .hero-3d-scene { width: clamp(280px, 40vw, 400px); }
+      .hero-headline { font-size: clamp(2.8rem, 4.5vw, 4.5rem) !important; }
+      .hero-3d-scene { width: clamp(340px, 45vw, 450px); }
     }
     @media (max-width: 768px) {
       .hero-layout { grid-template-columns: 1fr !important; text-align: center; }
