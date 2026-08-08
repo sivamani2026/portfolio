@@ -1255,15 +1255,15 @@
       border: 2px solid rgba(0, 255, 136, 0.6);
       border-radius: 50%;
       box-shadow: 0 0 25px rgba(0, 255, 136, 0.5), inset 0 0 15px rgba(0, 255, 136, 0.3);
-      animation: spinOrbit 15s linear infinite;
+      animation: spinOrbit 12s linear infinite;
       pointer-events: none;
-      z-index: -1;
-      transform: rotateX(70deg);
+      z-index: 0;
+      transform: translateZ(-200px) scale(1.4) rotateX(70deg);
       transform-style: preserve-3d;
     }
     @keyframes spinOrbit {
-      0% { transform: rotateX(70deg) rotateZ(0deg); }
-      100% { transform: rotateX(70deg) rotateZ(360deg); }
+      0% { transform: translateZ(-200px) scale(1.4) rotateX(70deg) rotateZ(0deg); }
+      100% { transform: translateZ(-200px) scale(1.4) rotateX(70deg) rotateZ(360deg); }
     }
     
     .floating-geo {
