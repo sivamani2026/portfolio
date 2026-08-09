@@ -44,12 +44,15 @@ export default async function handler(req, res) {
       text: `Name: ${cleanName}\nEmail: ${cleanEmail}\n\nMessage:\n${cleanMessage}`
     });
 
+    console.log("Contact API request received");
+    console.log("Resend result:", { data, error });
+
     if (error) {
       console.error('Resend Error:', error);
       return res.status(500).json({ success: false, message: 'Failed to send message' });
     }
 
-    return res.status(200).json({ success: true, message: 'Message sent successfully' });
+    return res.status(200).json({ success: true, message: 'Message sent successfully.' });
   } catch (error) {
     console.error('Server Error:', error);
     return res.status(500).json({ success: false, message: 'Internal Server Error' });

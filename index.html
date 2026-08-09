@@ -1741,7 +1741,7 @@
             <textarea id="contactMessage" placeholder="Tell me about your project..." required></textarea>
           </div>
           <button type="submit" id="submitBtn" class="btn btn-primary" style="align-self: flex-start;">
-            <span>SEND MESSAGE →</span>
+            <span>SEND MESSAGE</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
@@ -1888,8 +1888,8 @@
         
         const result = await response.json();
         
-        if (!response.ok || !result.success) {
-          throw new Error(result.message || "Failed to send message");
+        if (!response.ok || result.success !== true) {
+          throw new Error(result.message || "Failed to send message.");
         }
 
         messageContainer.innerText = "Message sent successfully. I'll get back to you soon.";
