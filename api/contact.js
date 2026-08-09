@@ -1,41 +1,41 @@
-const { Resend } = require('resend');
+import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export default async function handler(req, res) {
-  // Only allow POST requests
+export const config = {
+  runtime: 'edge', // Explicitly use the Edge runtime for Web APIs
+};
+
+export default async function handler(req) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
+    return Response.json({ success: false, message: 'Method Not Allowed' }, { status: 405 });
   }
 
   try {
-    const { name, email, message, _honey } = req.body;
+    const body = await req.json();
+    const { name, email, message, _honey } = body;
 
-    // 1. Honeypot Check (Spam Protection)
     if (_honey) {
-      // Silently drop the request for bots
-      return res.status(200).json({ message: 'Success' });
+      return Response.json({ success: true, message: 'Success' }, { status: 200 });
     }
 
-    // 2. Validation
     if (!name || typeof name !== 'string' || name.trim() === '') {
-      return res.status(400).json({ message: 'Name is required' });
+      return Response.json({ success: false, message: 'Name is required' }, { status: 400 });
     }
     if (!email || typeof email !== 'string' || email.trim() === '' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return res.status(400).json({ message: 'Valid email is required' });
+      return Response.json({ success: false, message: 'Valid email is required' }, { status: 400 });
     }
     if (!message || typeof message !== 'string' || message.trim() === '') {
-      return res.status(400).json({ message: 'Message is required' });
-    }
-    if (message.length > 5000) {
-      return res.status(400).json({ message: 'Message is too long (max 5000 characters)' });
+      return Response.json({ success: false, message: 'Message is required' }, { status: 400 });
     }
 
     const cleanName = name.trim();
     const cleanEmail = email.trim();
     const cleanMessage = message.trim();
 
-    // 3. Send Email via Resend
+    console.log("CONTACT API START");
+    console.log("REQUEST BODY:", { name: cleanName, email: cleanEmail, message: cleanMessage });
+
     const { data, error } = await resend.emails.send({
       from: 'Portfolio Contact Form <onboarding@resend.dev>',
       to: 'mannemsivamani44@gmail.com',
@@ -44,17 +44,28 @@ export default async function handler(req, res) {
       text: `Name: ${cleanName}\nEmail: ${cleanEmail}\n\nMessage:\n${cleanMessage}`
     });
 
-    console.log("Contact API request received");
-    console.log("Resend result:", { data, error });
+    console.log("RESEND DATA:", data);
+    console.log("RESEND ERROR:", error);
 
     if (error) {
-      console.error('Resend Error:', error);
-      return res.status(500).json({ success: false, message: 'Failed to send message' });
+      console.error("RESEND ERROR:", error);
+      console.log("RETURNING ERROR");
+      return Response.json(
+        { success: false, message: "Failed to send message." },
+        { status: 500 }
+      );
     }
 
-    return res.status(200).json({ success: true, message: 'Message sent successfully.' });
+    console.log("RETURNING SUCCESS");
+    return Response.json(
+      { success: true, message: "Message sent successfully." },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Server Error:', error);
-    return res.status(500).json({ success: false, message: 'Internal Server Error' });
+    return Response.json(
+      { success: false, message: 'Internal Server Error' },
+      { status: 500 }
+    );
   }
 }

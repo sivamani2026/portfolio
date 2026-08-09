@@ -1888,6 +1888,12 @@
         
         const result = await response.json();
         
+        console.log("CONTACT RESPONSE:", {
+          status: response.status,
+          ok: response.ok,
+          result
+        });
+        
         if (!response.ok || result.success !== true) {
           throw new Error(result.message || "Failed to send message.");
         }
