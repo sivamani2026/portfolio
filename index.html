@@ -688,36 +688,108 @@
     /* RESUME */
     /* RESUME PDF VIEWER */
     .resume-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 100px 0;
     }
 
-    .resume-preview-wrapper {
-      width: 100%;
-      max-width: 650px;
-      margin: 0 auto;
+    .resume-split-layout {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .resume-left {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .resume-intro-left .section-label {
+      margin-bottom: 16px;
+    }
+
+    .resume-intro-left .section-title {
+      font-size: clamp(32px, 4vw, 40px);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .resume-intro-left p {
+      color: var(--text-dim);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .resume-personal-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .resume-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--text-dim);
+    }
+
+    .resume-info-item svg {
+      color: var(--green);
+      margin-top: 2px;
+    }
+
+    .resume-info-item strong {
+      display: block;
+      color: var(--white);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .resume-actions-left {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .resume-actions-left .btn {
+      width: fit-content;
+      justify-content: center;
+    }
+
+    .resume-right {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 32px;
+      gap: 16px;
+    }
+
+    .resume-right-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 4px;
     }
 
     .resume-preview-card {
       width: 100%;
-      height: 450px;
+      height: 480px;
       background: #ffffff;
       border: 1px solid var(--light-gray);
-      border-radius: 12px;
+      border-radius: 8px;
       overflow: hidden;
       position: relative;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     }
 
     .resume-preview-img {
       width: 100%;
       height: auto;
       display: block;
+      object-fit: cover;
+      object-position: top;
     }
 
     .resume-fade {
@@ -725,23 +797,32 @@
       bottom: -2px;
       left: 0;
       right: 0;
-      height: 180px;
+      height: 120px;
       background: linear-gradient(to bottom, rgba(8,8,8,0) 0%, rgba(8,8,8,0.2) 40%, #080808 100%);
       pointer-events: none;
     }
 
-    .resume-actions {
+    .resume-disclaimer {
+      font-size: 13px;
+      color: var(--text-dim);
       display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 992px) {
+      .resume-split-layout {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
       .resume-preview-card {
-        height: 350px;
-        width: 90%;
+        height: 400px;
+        max-width: 600px;
         margin: 0 auto;
+      }
+      .resume-actions-left {
+        flex-direction: row;
+        flex-wrap: wrap;
       }
     }
 
@@ -1580,27 +1661,61 @@
   <!-- RESUME -->
   <section id="resume" class="resume-section">
     <div class="container">
-      <div class="resume-intro reveal" style="text-align: center; margin-bottom: 40px;">
-        <h2 class="section-title">RESUME</h2>
-        <p class="section-subtitle" style="color: var(--text-dim); font-size: 16px; font-family: 'Inter', sans-serif;">A quick look at my resume.</p>
-      </div>
-      
-      <div class="resume-preview-wrapper reveal">
-        <div class="resume-preview-card">
-          <img src="resume/resume-preview.png" alt="Mannem Sivamani Resume Preview" class="resume-preview-img">
-          <div class="resume-fade"></div>
+      <div class="resume-split-layout reveal">
+        
+        <!-- LEFT SIDE -->
+        <div class="resume-left">
+          <div class="resume-intro-left">
+            <div class="section-label">RESUME</div>
+            <h2 class="section-title">A quick look at<br><span style="color: var(--green);">my resume.</span></h2>
+            <p>Here’s a quick snapshot of my professional background, skills, experience, and education. Feel free to view or download my full resume for more details.</p>
+          </div>
+          
+          <div class="resume-personal-info">
+            <div class="resume-info-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <div>
+                <strong>Mannem Sivamani</strong>
+                AI & ML Student / Developer
+              </div>
+            </div>
+            <div class="resume-info-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div>Virudhunagar, Tamil Nadu, India</div>
+            </div>
+            <div class="resume-info-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <div>mannemsivamani44@gmail.com</div>
+            </div>
+            <div class="resume-info-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <div>+91 97019 47061</div>
+            </div>
+          </div>
+          
+          <div class="resume-actions-left">
+            <a href="resume/Mannem_Sivamani_Resume.pdf" target="_blank" class="btn-primary" aria-label="Open Mannem Sivamani resume in new tab">
+              VIEW FULL RESUME <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            </a>
+            <a href="resume/Mannem_Sivamani_Resume.pdf" download="Mannem_Sivamani_Resume.pdf" class="btn-secondary" aria-label="Download Mannem Sivamani resume">
+              DOWNLOAD RESUME <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="resume-right">
+          <div class="resume-right-title">RESUME PREVIEW</div>
+          <div class="resume-preview-card">
+            <img src="resume/resume-preview.png" alt="Mannem Sivamani Resume Preview" class="resume-preview-img">
+            <div class="resume-fade"></div>
+          </div>
+          <div class="resume-disclaimer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            This is a preview of my resume. The full resume may contain more details.
+          </div>
         </div>
         
-        <div class="resume-actions">
-          <a href="resume/Mannem_Sivamani_Resume.pdf" target="_blank" class="btn-primary" aria-label="Open Mannem Sivamani resume in new tab">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-            VIEW FULL RESUME
-          </a>
-          <a href="resume/Mannem_Sivamani_Resume.pdf" download="Mannem_Sivamani_Resume.pdf" class="btn-secondary" aria-label="Download Mannem Sivamani resume">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-            DOWNLOAD RESUME
-          </a>
-        </div>
       </div>
     </div>
   </section>
