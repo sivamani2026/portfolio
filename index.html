@@ -1886,14 +1886,15 @@
           })
         });
         
-        if (response.ok) {
-          messageContainer.innerText = "Message sent successfully. I'll get back to you soon.";
-          messageContainer.style.color = "var(--green)";
-          form.reset();
-        } else {
-          messageContainer.innerText = "Something went wrong. Please try again or email me directly.";
-          messageContainer.style.color = "#ff4444";
+        const result = await response.json();
+        
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || "Failed to send message");
         }
+
+        messageContainer.innerText = "Message sent successfully. I'll get back to you soon.";
+        messageContainer.style.color = "var(--green)";
+        form.reset();
       } catch (error) {
         console.error('Error:', error);
         messageContainer.innerText = "Something went wrong. Please try again or email me directly.";
