@@ -686,90 +686,49 @@
     }
 
     /* RESUME */
-    .resume-section .resume-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
+    /* RESUME PDF VIEWER */
+    .resume-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .resume-preview {
+    .pdf-viewer-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
       background: var(--gray);
       border: 1px solid var(--light-gray);
       border-radius: 16px;
-      padding: 48px;
-      aspect-ratio: 8.5/11;
+      padding: 32px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      position: relative;
-      overflow: hidden;
+      align-items: center;
+      gap: 32px;
     }
 
-    .resume-preview::before {
-      content: 'RESUME PREVIEW';
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      font-size: 9px;
-      letter-spacing: 2px;
-      color: var(--text-dim);
-      text-transform: uppercase;
+    .resume-iframe {
+      width: 100%;
+      height: 1100px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: transparent;
     }
 
-    .rp-header {
-      border-bottom: 1px solid var(--light-gray);
-      padding-bottom: 16px;
+    .resume-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
-    .rp-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 4px;
-    }
-
-    .rp-subtitle {
-      font-size: 11px;
-      color: var(--green);
-    }
-
-    .rp-section-title {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--green);
-      margin-bottom: 8px;
-    }
-
-    .rp-line {
-      height: 8px;
-      background: var(--light-gray);
-      border-radius: 4px;
-      margin-bottom: 6px;
-    }
-
-    .rp-line.short {
-      width: 60%;
-    }
-
-    .rp-line.med {
-      width: 80%;
-    }
-
-    .resume-info h3 {
-      font-size: 14px;
-      color: var(--white);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .resume-info p {
-      font-size: 14px;
-      color: var(--text-dim);
-      line-height: 1.8;
-      margin-bottom: 32px;
+    @media (max-width: 768px) {
+      .resume-iframe {
+        height: 600px;
+      }
+      .pdf-viewer-container {
+        padding: 16px;
+      }
     }
 
     .btn {
@@ -1609,59 +1568,23 @@
     <div class="container">
       <div class="section-label reveal">Resume</div>
       <h2 class="section-title reveal">Download my<br>resume</h2>
-      <div class="resume-grid">
-        <div class="resume-preview reveal">
-          <div class="rp-header">
-            <div class="rp-name">Mannem Sivamani</div>
-            <div class="rp-subtitle">AI & ML Student / Developer — Virudhunagar, Tamil Nadu, India</div>
-          </div>
-          <div>
-            <div class="rp-section-title">Experience</div>
-            <div class="rp-line"></div>
-            <div class="rp-line med"></div>
-            <div class="rp-line short"></div>
-          </div>
-          <div>
-            <div class="rp-section-title">Education</div>
-            <div class="rp-line"></div>
-            <div class="rp-line med"></div>
-          </div>
-          <div>
-            <div class="rp-section-title">Skills</div>
-            <div class="rp-line short"></div>
-            <div class="rp-line"></div>
-            <div class="rp-line med"></div>
-          </div>
-          <div>
-            <div class="rp-section-title">Projects</div>
-            <div class="rp-line"></div>
-            <div class="rp-line short"></div>
-          </div>
-        </div>
-        <div class="resume-info reveal">
-          <h3>Mannem Sivamani</h3>
-          <p>
-            B.Tech CSE (AI & ML) Student with a strong foundation in Python, Machine Learning, and Software Development. Passionate about creating intelligent systems that solve real-world problems. Experienced in working with modern web technologies, databases, and AI frameworks.
-          </p>
-          <h3>Education</h3>
-          <p>
-            B.Tech in Computer Science (AI & ML)<br>
-            Kalasalingam Academy of Research and Education, 2028
-          </p>
-          <h3>Certifications</h3>
-          <p>
-            Machine Learning Training — Corizo (CRZ155377)<br>
-            Cloud Computing with AWS — Beeskilled (Upcoming)
-          </p>
-          <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-            <a href="#" class="btn btn-primary" onclick="event.stopPropagation();">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
-              </svg>
-              Download PDF
-            </a>
-            <a href="#contact" class="btn btn-outline" onclick="event.stopPropagation();">Get in Touch</a>
-          </div>
+      <div class="pdf-viewer-container reveal">
+        <iframe
+          src="resume/Mannem_Sivamani_Resume.pdf"
+          title="Mannem Sivamani Resume"
+          class="resume-iframe"
+        >
+          <p>Resume preview unavailable.</p>
+        </iframe>
+        <div class="resume-actions">
+          <a href="resume/Mannem_Sivamani_Resume.pdf" target="_blank" class="btn-primary" aria-label="Open Mannem Sivamani resume in new tab">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            VIEW RESUME
+          </a>
+          <a href="resume/Mannem_Sivamani_Resume.pdf" download="Mannem_Sivamani_Resume.pdf" class="btn-secondary" aria-label="Download Mannem Sivamani resume">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            DOWNLOAD RESUME
+          </a>
         </div>
       </div>
     </div>
