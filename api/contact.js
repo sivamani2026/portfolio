@@ -1,32 +1,27 @@
-import { Resend } from 'resend';
+const { Resend } = require('resend');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const config = {
-  runtime: 'edge', // Explicitly use the Edge runtime for Web APIs
-};
-
-export default async function handler(req) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
-    return Response.json({ success: false, message: 'Method Not Allowed' }, { status: 405 });
+    return res.status(405).json({ success: false, message: 'Method Not Allowed' });
   }
 
   try {
-    const body = await req.json();
-    const { name, email, message, _honey } = body;
+    const { name, email, message, _honey } = req.body || {};
 
     if (_honey) {
-      return Response.json({ success: true, message: 'Success' }, { status: 200 });
+      return res.status(200).json({ success: true, message: 'Success' });
     }
 
     if (!name || typeof name !== 'string' || name.trim() === '') {
-      return Response.json({ success: false, message: 'Name is required' }, { status: 400 });
+      return res.status(400).json({ success: false, message: 'Name is required' });
     }
-    if (!email || typeof email !== 'string' || email.trim() === '' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return Response.json({ success: false, message: 'Valid email is required' }, { status: 400 });
+    if (!email || typeof email !== 'string' || email.trim() === '') {
+      return res.status(400).json({ success: false, message: 'Valid email is required' });
     }
     if (!message || typeof message !== 'string' || message.trim() === '') {
-      return Response.json({ success: false, message: 'Message is required' }, { status: 400 });
+      return res.status(400).json({ success: false, message: 'Message is required' });
     }
 
     const cleanName = name.trim();
@@ -50,22 +45,13 @@ export default async function handler(req) {
     if (error) {
       console.error("RESEND ERROR:", error);
       console.log("RETURNING ERROR");
-      return Response.json(
-        { success: false, message: "Failed to send message." },
-        { status: 500 }
-      );
+      return res.status(500).json({ success: false, message: "Failed to send message." });
     }
 
     console.log("RETURNING SUCCESS");
-    return Response.json(
-      { success: true, message: "Message sent successfully." },
-      { status: 200 }
-    );
+    return res.status(200).json({ success: true, message: "Message sent successfully." });
   } catch (error) {
     console.error('Server Error:', error);
-    return Response.json(
-      { success: false, message: 'Internal Server Error' },
-      { status: 500 }
-    );
+    return res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
-}
+};
