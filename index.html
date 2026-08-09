@@ -693,26 +693,41 @@
       align-items: center;
     }
 
-    .pdf-viewer-container {
+    .resume-preview-wrapper {
       width: 100%;
-      max-width: 900px;
+      max-width: 650px;
       margin: 0 auto;
-      background: var(--gray);
-      border: 1px solid var(--light-gray);
-      border-radius: 16px;
-      padding: 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 32px;
     }
 
-    .resume-iframe {
+    .resume-preview-card {
       width: 100%;
-      height: 1100px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      background: transparent;
+      height: 450px;
+      background: #ffffff;
+      border: 1px solid var(--light-gray);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .resume-preview-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .resume-fade {
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 180px;
+      background: linear-gradient(to bottom, rgba(8,8,8,0) 0%, rgba(8,8,8,0.2) 40%, #080808 100%);
+      pointer-events: none;
     }
 
     .resume-actions {
@@ -723,11 +738,10 @@
     }
 
     @media (max-width: 768px) {
-      .resume-iframe {
-        height: 600px;
-      }
-      .pdf-viewer-container {
-        padding: 16px;
+      .resume-preview-card {
+        height: 350px;
+        width: 90%;
+        margin: 0 auto;
       }
     }
 
@@ -1566,20 +1580,21 @@
   <!-- RESUME -->
   <section id="resume" class="resume-section">
     <div class="container">
-      <div class="section-label reveal">Resume</div>
-      <h2 class="section-title reveal">Download my<br>resume</h2>
-      <div class="pdf-viewer-container reveal">
-        <iframe
-          src="resume/Mannem_Sivamani_Resume.pdf"
-          title="Mannem Sivamani Resume"
-          class="resume-iframe"
-        >
-          <p>Resume preview unavailable.</p>
-        </iframe>
+      <div class="resume-intro reveal" style="text-align: center; margin-bottom: 40px;">
+        <h2 class="section-title">RESUME</h2>
+        <p class="section-subtitle" style="color: var(--text-dim); font-size: 16px; font-family: 'Inter', sans-serif;">A quick look at my resume.</p>
+      </div>
+      
+      <div class="resume-preview-wrapper reveal">
+        <div class="resume-preview-card">
+          <img src="resume/resume-preview.png" alt="Mannem Sivamani Resume Preview" class="resume-preview-img">
+          <div class="resume-fade"></div>
+        </div>
+        
         <div class="resume-actions">
           <a href="resume/Mannem_Sivamani_Resume.pdf" target="_blank" class="btn-primary" aria-label="Open Mannem Sivamani resume in new tab">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-            VIEW RESUME
+            VIEW FULL RESUME
           </a>
           <a href="resume/Mannem_Sivamani_Resume.pdf" download="Mannem_Sivamani_Resume.pdf" class="btn-secondary" aria-label="Download Mannem Sivamani resume">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
