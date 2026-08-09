@@ -1888,11 +1888,9 @@
         
         const result = await response.json();
         
-        console.log("CONTACT RESPONSE:", {
-          status: response.status,
-          ok: response.ok,
-          result
-        });
+        console.log("CONTACT RESPONSE STATUS:", response.status);
+        console.log("CONTACT RESPONSE OK:", response.ok);
+        console.log("CONTACT RESPONSE BODY:", result);
         
         if (!response.ok || result.success !== true) {
           throw new Error(result.message || "Failed to send message.");
