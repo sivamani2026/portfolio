@@ -1726,25 +1726,27 @@
       <div class="section-label reveal">Get in Touch</div>
       <h2 class="section-title reveal">Let's work<br>together</h2>
       <div class="contact-grid">
-        <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+        <form class="contact-form reveal" id="contactForm" onsubmit="handleSubmit(event)">
+          <input type="text" name="_honey" id="_honey" style="display:none" tabindex="-1" autocomplete="off">
           <div class="form-group">
             <label>Your Name</label>
-            <input type="text" placeholder="John Doe" required>
+            <input type="text" id="contactName" placeholder="John Doe" required>
           </div>
           <div class="form-group">
             <label>Email</label>
-            <input type="email" placeholder="john@example.com" required>
+            <input type="email" id="contactEmail" placeholder="john@example.com" required>
           </div>
           <div class="form-group">
             <label>Message</label>
-            <textarea placeholder="Tell me about your project..."></textarea>
+            <textarea id="contactMessage" placeholder="Tell me about your project..." required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary" style="align-self: flex-start;">
-            Send Message
+          <button type="submit" id="submitBtn" class="btn btn-primary" style="align-self: flex-start;">
+            <span>SEND MESSAGE →</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
+          <div id="formMessage" style="margin-top: 16px; font-size: 14px; font-weight: 500;"></div>
         </form>
         <div class="contact-info reveal">
           <p>
@@ -1848,21 +1850,59 @@
     }
 
     // Form Submit
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('button[type="submit"]');
+      
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      const btnText = btn.querySelector('span');
+      const messageContainer = document.getElementById('formMessage');
+      
       const originalHTML = btn.innerHTML;
-      btn.innerHTML = '✓ Sent!';
-      btn.style.background = 'transparent';
-      btn.style.border = '1px solid var(--green)';
-      btn.style.color = 'var(--green)';
-      setTimeout(() => {
+      
+      // Get values
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const message = document.getElementById('contactMessage').value;
+      const honey = document.getElementById('_honey').value;
+      
+      // Update UI to sending state
+      if(btnText) btnText.innerText = 'SENDING...';
+      btn.style.opacity = '0.7';
+      btn.style.pointerEvents = 'none';
+      messageContainer.innerText = '';
+      
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: message,
+            _honey: honey
+          })
+        });
+        
+        if (response.ok) {
+          messageContainer.innerText = "Message sent successfully. I'll get back to you soon.";
+          messageContainer.style.color = "var(--green)";
+          form.reset();
+        } else {
+          messageContainer.innerText = "Something went wrong. Please try again or email me directly.";
+          messageContainer.style.color = "#ff4444";
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        messageContainer.innerText = "Something went wrong. Please try again or email me directly.";
+        messageContainer.style.color = "#ff4444";
+      } finally {
         btn.innerHTML = originalHTML;
-        btn.style.background = '';
-        btn.style.border = '';
-        btn.style.color = '';
-        e.target.reset();
-      }, 2500);
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+      }
     }
 
     // Smooth anchor scroll offset for fixed nav
