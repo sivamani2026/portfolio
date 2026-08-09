@@ -18,8 +18,5 @@
     "url": "https://github.com/sivamani2026/portfolio/issues"
   },
   "homepage": "https://github.com/sivamani2026/portfolio#readme",
-  "dependencies": {
-    "express": "^5.2.1",
-    "resend": "^6.18.1"
-  }
+  "dependencies": {}
 }
